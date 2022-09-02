@@ -1,0 +1,45 @@
+<h2>Products</h2>
+<!--
+  with *ngFor directive, the <div> repeats for each product in the list.
+  Structural directives shape or reshape the DOM's structure, by adding, removing, and manipulating elements.
+-->
+<div *ngFor="let product of products">
+  <!--
+    Interpolation: Interpolation {{ }} lets you render the property value as text.
+  -->
+  <h3>
+    <!--
+      Property binding [ ] lets you use the property value in a template expression.
+    -->
+    <a
+      [title]="product.name + ' details'"
+      [routerLink]="['/products', product.id]"
+    >
+      {{ product.name }}
+    </a>
+    &nbsp;<span *ngIf="product.brand">{{ product.brand }}</span>
+  </h3>
+  <!--
+    Angular only creates the <p> element if the current product has a description.
+  -->
+  <p *ngIf="product.description">
+    <b>Description:</b>&nbsp;{{ product.description }}
+  </p>
+  <p *ngIf="product.price">${{ product.price }}</p>
+
+  <!--
+    Event binding uses a set of parentheses, ( ), around the event, as in the (click) event on the <button> element.
+  -->
+  <button type="button" (click)="share()">Share</button>&nbsp;
+  <app-product-alerts
+    [product]="product"
+    (notify)="onNotify()"
+  ></app-product-alerts>
+  <hr />
+</div>
+
+<!-- 
+Copyright Google LLC. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that
+can be found in the LICENSE file at https://angular.io/license
+-->
